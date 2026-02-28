@@ -1,30 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Homework - Document 104</title>
+    <title>CloudMoon Mirror</title>
     <style>
-        /* This makes the game fill the whole screen */
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; }
-        #game-container { width: 100%; height: 100%; border: none; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
 
-    <iframe 
-        id="game-container"
-        src="https://web.cloudmoonapp.com/" 
-        sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-pointer-lock"
-        allow="autoplay; fullscreen; keyboard"
-        title="CloudMoon Player">
-    </iframe>
+<iframe id="gameFrame" src="https://web.cloudmoonapp.com/apps/roblox"></iframe>
 
-    <script>
-        // This script helps prevent some common "frame-breaking" scripts
-        window.onbeforeunload = function() {
-            return "Are you sure you want to leave this page?";
-        };
-    </script>
+<script>
+    // This script tries to intercept "window.open" calls 
+    // and forces them to load inside the SAME iframe instead of a popup.
+    const frame = document.getElementById('gameFrame');
+    
+    window.open = function(url) {
+        frame.src = url; // Redirect the iframe instead of opening a new tab
+        return null; 
+    };
+</script>
+
 </body>
 </html>
